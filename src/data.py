@@ -61,6 +61,8 @@ class DataClass(Dataset):
             dItemDict = load_json(osp.join(sJsonBasePath, sJson))
             self.m_lItemList.append(dItemDict)
 
+    def __len__(self):
+        return len(self.m_lItemList)
 
     def __getitem__(self, key):
         dSelectItem = self.m_lItemList[key]

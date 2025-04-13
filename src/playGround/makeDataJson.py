@@ -17,7 +17,7 @@ def load_json(path: str, encoding: str = 'cp949'):
         return json.load(f)
 
 
-def makeSampleData(
+def make_sample_data(
         sFilePath: str,
         iTotalClassNum: int
 )-> Dict[str, List[Label]]:
@@ -49,7 +49,7 @@ def makeSampleData(
     return dDataDict
 
 
-def makeBoxView(sOutPath: str, dDataDict: Dict[str, List[Label]]):
+def make_box_view(sOutPath: str, dDataDict: Dict[str, List[Label]]):
     sOutPath: str = osp.join(osp.dirname(sOutPath), 'boxView')
     nInImage: np.ndarray = np.array(Image.open(dDataDict['sFilePath']).convert('RGB'))
     nOutImage: np.ndarray = deepcopy(nInImage)
@@ -80,13 +80,13 @@ if __name__ == '__main__':
             continue
 
         _pBar.set_description_str(f'[makeDataJson][{_sFile}]')
-        _dDataDict = makeSampleData(sFilePath=osp.join(_sInPath, _sFile), iTotalClassNum=_iTotalClassNum)
+        _dDataDict = make_sample_data(sFilePath=osp.join(_sInPath, _sFile), iTotalClassNum=_iTotalClassNum)
 
         os.makedirs(_sOutPath, exist_ok=True)
         with open(osp.join(_sOutPath, f'{osp.splitext(_sFile)[0]}.json'), 'w') as f:
             json.dump(_dDataDict, f, ensure_ascii=False, indent=4)
 
-        makeBoxView(sOutPath=_sOutPath, dDataDict=_dDataDict)
+        make_box_view(sOutPath=_sOutPath, dDataDict=_dDataDict)
 
         _pBar.update()
 
